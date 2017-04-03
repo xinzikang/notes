@@ -565,6 +565,28 @@
             </script>`
             脚本下载完成后就会异步执行，为了解决脚本之间的依赖问题，可以在script的onload事件中添加回调
 
+4-3 node项目Blog
+        用户输入url,web后端通过用户访问的的url处理不同的业务逻辑: 后端收到url请求后，解析路由，找到对应的规则
+            并执行绑定的函数，返回对应的内容给客户端。其中分为静态文件访问和动态路由访问。静态时直接读取指定目录下
+            的文件返回给客户端，动态是：处理业务逻辑，加载模板，解析模板，返回数据给客户端。
+        处理请求输出：通过app.get()或 app.post()等方法可以把一个url和一个或N个函数绑定（即路由绑定）
+            app.get('/',function(req,res,next){next方法用于执行下一个和该路由匹配的方法})
+        内容输出：res.send(str)发送内容之客户端
+        内容输出时，用到模板，为了前后端分离
+
+        设置静态文件托管
+        app.use('/public',express.static(__dirname + '/public') )
+
+
+        移动端：
+        设备像素比devicePixelRatio：2/3  把一个像素放大到N个像素显示 ,该属性只能获取不能设置
+        metal标签设置
+            qq强制竖屏|横屏显示<mate name="x5-oritentation" content="portrait|landscape"></mate>
+            qq强制x5浏览器全屏显示<mate name="x5-fullscreen" content="true"></mate>
+            uc强制竖屏|横屏显示<mate name="screen-oritentation" content="portrait|landscape"></mate>
+            uc强制浏览器全屏显示<mate name="full-screen" content="yes"></mate>
+            进制识别电话和邮箱<mate name="format-detection" content="teliphone=no,email=no"></mate>
+                局部识别电话邮箱 <a href="tel:100">100</a> <a href="mailto:xzk@163.com"></a>
     </p>
 
     <span>
