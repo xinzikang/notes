@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<p>
+    移动端：
+        设备像素比devicePixelRatio：2/3  把一个像素放大到N个像素显示 ,该属性只能获取不能设置
+        metal标签设置
+        qq强制竖屏|横屏显示<mate name="x5-oritentation" content="portrait|landscape"></mate>
+        qq强制x5浏览器全屏显示<mate name="x5-fullscreen" content="true"></mate>
+        uc强制竖屏|横屏显示<mate name="screen-oritentation" content="portrait|landscape"></mate>
+        uc强制浏览器全屏显示<mate name="full-screen" content="yes"></mate>
+        进制识别电话和邮箱<mate name="format-detection" content="teliphone=no,email=no"></mate>
+        局部识别电话邮箱 <a href="tel:100">100</a> <a href="mailto:xzk@163.com"></a>
+        按钮点击时阴影：a,input,button{-webkit-tag-highlight-color:rgba(0,0,0,0)}
+        所有按钮 button在ios下都会有圆角,清除圆角：button{ -webkit-appearence:none; border-radius:0 }
+        移动端字体：font-family:Helvetica(英文)
+        禁止文字缩放：*{-webkit-text-size-adjust:100%}
+        进制文字选中：*{-webkit-user-select:none} //在ios下有效，安卓无效
+        font boosting:一段文字在没哟设置高度时，在weblit内核下，文字大小被浏览器放大
+        解决：1.设置高度2.在高度不定时，设置最大高度max-height
+        ios的body在设置overflow时，仍然可以拖动，是可以再包一层，给其设置overflower
+        适配问题：百分比适配（只是宽度可以适配）
+                viewport适配（通过js,动态创建mate标签，设置其用户最大最小缩放比）
+                rem
+                弹性盒模型
+        弹性盒模型：老版弹性盒模型box比新版的flex兼容性更好
+            老版弹性盒模型:父级加上display:-webkit-box
+            主轴方向设置flex: flex-disrection(复合属性):row/column row-reverse/column-reverse
+                      box: -webkit-box-orient:horizontal/vertical
+                           设置正反序 -webkit-box-direction:reverse/normal
+            主轴富余空间的管理：flex: justify-content:flex-start(元素在主轴开始位置，富余空间在主轴的结束位置)/flex-end/center(元素在中间，富余空间在两侧)/
+                                                    space-between(富余空间平分在每两个元素之间)/space-around(富余空间平均分配在每个元素两侧)
+                            box: -webkit-box-pack:start/end/center/justify(同space-between)
+            侧轴方向富余空间管理; flex: align-items:flex-start/flex-end/center/baseline(根据侧轴方向上文字基线对齐)
+                                box: -webkit-box-align:start/end/center
+
+            给子集加的属性：flex-grow:1 ; 每个元素的位置：order:1/2/0/-1(数值越小越靠前)
+                        -webkit-box-flex:1 ; -webkit-box-ordinal-grounp:5/3/1(小于等于0的数会默认处理为1)
+
+        媒体查询@media (orientation:portrait/landscape) 横竖屏:通过检测可视区的宽高大小，当弹出软键盘时，也会触发，故慎用该方式
+            样式引入方式：1.@media all and (min-width:300px){}
+                        2.<link rel="stylesheet" href="css/1.css" media="all and (mix-width:300px)">
+                        3.@import url (1.css)(mix-width:300px);
+        移动端事件：
+            touchstart/touchmove/touchend
+            绑定移动端的时候，一般用addEventListener(),而不用on
+            移动端的点透：当上层元素发生点击时，其下层元素也会触发点击事件。在点击开始300ms之后，如果上层元素消失或者隐藏，下层元素就会触发点击事件。
+            解决点透：下层不要使用有点击特性/事件的元素；阻止pc事件（阻止默认），给需要的元素手动添加事件
+            ios10下设置meta标签进制用户缩放是无效的，可以使用touchstart事件时阻止默认来实现禁止缩放
+                document.addEventlistener('touchstart',function(ev){ev.preventDefault()})
+            也可以解决ios10下的body移除隐藏问题；禁止系统的滚动条/橡皮筋效果，禁止长按选中文字或图片；
+            也阻止了焦点元素的焦点行为（input），此时，可以给该焦点元素绑定touchstart事件，使用阻止进程。ev.stopPropagation()
+        移动端事件对象:
+            ev.touches:当前屏幕上的手指列表
+            ev.targetTouches:当前元素上手指的列表
+            ev.changedTouches:涉及当前事件的手指的列表
+        transform:移动端注意加前缀-webkit-transform
+            js中写法:div.style.WebkitTransform = div.style.transform = 'rotate(90deg)'
+                rotate/skew(skewX/skewY)斜切，默认为X轴(40deg)/scale(scaleX,scaleY)/translate(translateX,translateY)
+            -webkit-transform-origin:left/top/center/bottom/right/em,rem,px/百分比
+                transform复合样式，先写的后执行，translate不会改变原点
+                获取transform是时，只能获取到矩阵matrix(a,b,c,d,e,f)
+                translate：只需改变e/f
+                scale:scaleX只需改变a,c,e 都乘以缩放系数；scaleY只需改变b,d,f 都乘以缩放系数
+                先平移再缩放/先缩放再平移 按照先后顺序改变matrix
+        transform3d都要加景深（近大远小），perspective:200px该属性一般加给要做3d变化元素的父级 ; perspective-origin: X Y （默认为center/center）
+            rotateX/rotateY/rotateZ/rotate3D
+            translateX/translateY/translateZ(正值大负值小)/translate3d
+        transform-style:flat(不保留)|perserve-3d(保留) 元素在做3d变换时，是否保留子元素的3d变换
+            背面隐藏backface-visibility:visible|hidden
+
+        多指操作：gestruestart:当屏幕有两根或以上的手指执行
+                gestrueend:当触发gestruestart以后，然后抬起手指，这是屏幕上的手指个数少于2个或者该元素上没有了手指时，触发事件
+
+</p>
+</body>
+</html>
