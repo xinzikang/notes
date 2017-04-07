@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	div{
+		height: 100px;
+		width: 100px;
+		background-color: red;
+		position: absolute;
+		top: 0;
+		left: 0;
+		opacity: 0.2
+
+	}
+	</style>
+</head>
+<body>
+	<a href="http://www.baidu.com">点击</a>
+	<div id="div"></div>
+</body>
+</html>
+<script>
+	var div = document.getElementById('div');
+	document.addEventListener('touchstart',function(){
+		div.style.display = 'none';
+	})
+	
+</script>

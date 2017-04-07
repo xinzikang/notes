@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	继承：js的继承是靠原型链实现。原型链的构建是通过将一个类型的实例赋值给另一个构造函数的原型。从而可以让子类型访问到超类型所有的属性和方法。即查找实例对像的原型链就等于查找它的构造函数的原型。
+		原型链的问题是对象实例共享所有的继承的属性和方法，所以一般混用与构造函数，即在子类的构造函数中调用超类型的构造函数（call/apply）。通过原型链继承共享的属性和方法，通过构造函数继承实例属性。
+		一般来说有6中继承模式，但我总结的2中实现方法。（即拷贝继承/类式继承）。区别主要是在于方法的继承，属性继承都是借用构造函数，而方法继承可以使用深拷贝或者炮灰继承方式（寄生式/寄生组合式继承）。
+	闭包：是指有权访问另一个函数作用域中变量的函数。创建闭包的常用方式就是函数嵌套函数。
+		理解闭包：当B函数被调用时，会创建一个执行环境及相应的作用域链。作用域链的前端，始终都是当前执行环境的中的变量对像。若该环境是函数，则将函数的活动对象最为变量对象。活动对象在最开始时只包含一个arguments对象。作用域链的下一个变量对象来自其包含环境。
+		在创建函数时，会创建一个作用域链，该作用域链被保存在内部的[[Scope]]属性中。当调用函数时，会创建一个函数的执行环境，并通过复制函数的[[Scope]]属性来构建执行环境的作用域链，此后，又有一个活动对象被推入执行环境作用域链的前端。作用域链本质上是一个指向变量对象的指针列表。
+		闭包会延长其包含环境的变量的生命周期。一般当函数执行完毕后，局部活动对象会被销毁，内存中仅保存全局执行环境的变量对象。但因为闭包的作用域链中仍然保存着其包含环境中的变量对象的引用，所以在包含函数执行完毕后，包含函数的作用域链会被销毁，但其中的变量仍然会被保存，直到这个闭包被销毁。
+	web Storage和cookie的区别：都是在浏览器端存储的数据，只是web Storage的容量更大
+		cookie大小有限，一般不超过4k,可以设置过期时间，每次请求一个新页面时，cookie都会被发送到服务端，浪费了带宽，但是cookie作用是与服务器进行数据交互，而web Storage仅是为了本地存储。
+		sessionStorage:只要浏览器窗口没关闭，即使输刷新或者进入同源的另一页，数据都会存在。
+		localStorage：支持storage事件，当操作本地存储数据时，会在兄弟页面触发事件
+		本地存储都有setitem/getItem/removeItem/clear方法，不需要自己封装方法。
+		好处：减少服务器端请求，性能好，大小一般都在5M左右
+
+	1.自适应布局：百分比：大小是根据其父级大小来定的
+			  浮动布局：就是让元素脱离普通文档流，使用width/height/margin/padding定位(圣杯布局)
+			  普通流布局：inline-block 问题多多：元素后面会有4px空格（有换行符所致），在父元素中设置font－size=0,letter-spacing: -4px;并且默认是跟文字基线对其，需用vertical-align显示设置
+			  弹性盒模型
+	2.等高布局：伪等高：边框模拟：使用中间元素的边框来模拟左右两侧的背景色
+					负的margin：padding：9999px;margin-bottom:-9999px
+				真等高：table布局：子元素table-sell 默认就是等高的
+						absolute top:0;bottom:0 爆裂拉伸盛满容器实现等高
+						flex: 默认的伸缩项目都等于父级的高度
+	3.函数节流：性能优化的一种方案。对频繁触发的函数事件做一些限制，让这些函数在满足一定条件或者每隔一定时间再触发
+				function throttle(func){
+			        var timer;
+			        return function(){
+			            var context = this;
+			            var args = arguments;
+			            clearTimeout(timer);
+			            timer = setTimeout(function(){
+			                func.apply(context,args);
+			            },1000);
+			        }
+			        
+			    }
+    4.call/apply都是为了改变函数内部this指向
+     function   isArray(obj){ 
+	    return Object.prototype.toString.call(obj) === '[object Array]' ;
+	}
+	bind:不会立即调用，会创建一个新函数，成为绑定函数，便于稍后调用
+	5.按钮提交的两种方式：
+		<form action="xxx.com" method="post">
+			< input type='submit'> 点击时自动跳转到action，不需要点击事件。支持enter触发
+			< input type='button' onClick='submit()' />  只是一个单纯的按钮，需要在js中添加事件
+		</form>
+	6. get 和 post 对比
+	get:数据放在url中传输，不安全，大小有限制
+	post：数据放在body中，相对较安全，理论上大小没有限制
+	7.浏览器的事件机制
+	ie用的是冒泡，w3c都支持。冒泡机制的应用场景是事件委托
+	8.css水平垂直居中
+		position+margin: posotion:absolute;上下左右为0;margin:auto;
+		position+margin负值/transform:transform:translate(-50%,-50%)
+		flex:父层：display:flex;子层：margin:auto;
+			或者display:flex;align-items:center;justify-content:center;
+		
+</body>
+</html>
