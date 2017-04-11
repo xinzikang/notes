@@ -11,9 +11,84 @@
 		异步脚本async
 			与defer类似，告知浏览器立即下载文件。但是并不保证脚本的执行顺序。指定async的目的是不让页面等到两个脚本的加载和执行，从而异步的加载其他内容，故异步脚本不要再加载期间修改DOM。异步脚本一定会在页面的load前执行，但可能会在DOMContentLoaded事件触发之前或者之后执行。
 		文档模式
-		混杂模式|标准模式|准标准模式，如果在文档开始处没有发现文档类型声明，那么所有浏览器默认开启混杂模式。不同模式主要影响css的内容呈现
+		混杂模式|标准模式|准标准模式，如果在文档开始处没有发现文档类型声明，那么所有浏览器默认开启混杂模式。不同模式主要影响css的内容呈现.
+	</p>
+	<p>
+		第四章 执行环境几作用域
+		执行环境（即作用域）定义了变量或者函数有权访问的其他变量，决定了他们的个子行为。每个函数都有自己的执行环境。当执行流进入一个函数时，函数的环境就会被推入一个环境栈中，在函数执行完毕之后，栈将其环境弹出，将控制权还给之前的环境。（递归中归的过程）
+		当代码在一个环境中执行时，会创建变量对象的一个作用域链。标识符解析式沿着作用域链一级一级的搜索标识符的过程。内部环境可以通过作用域链访问到所有的外部环境，但是外部环境不能访问内部环境中的任何变量和函数。
+		确定一个值是哪种基本类型可以用typeof操作符，确定是哪种引用类型用instanceof操作符。
+	</p>
+	<p>
+		第五章 引用类型
+		检测数组
+			arr instanceof Array 缺点：网页中只能包含一个全局环境（不能使用框架iframe）
+			es5方法：Array.isArray(arr)
+			方法检测: [].push() 
+		arr.concat() 会创建一个副本，不会改变原数组
+		arr.slice(start,[end]) 不影响原数组。负数的话，将自动加上数组长度计算。如end< start,则返回空数组。
+		函数内部属性：arguments:保存函数参数/callee属性（指向拥有这个argus对象的函数）
+		arguments.callee.caller:指向调用当前函数的函数，如果实在全局作用域中调用当前函数，则caller为null
+		引用类型与基本包装类型的主要区别：对象的生存周期不同
+		字符方法：
+			str.charAt()/charCodeAt() 相反操作str.fromChatCode()
+			slice(start,[end])/substr(start,[length])/substring(start,[end]) 都会返回被操作字符串的一个子字符串
+			参数为负值时:slice()将负值与长度相加
+						substr()将第一个负值与长度相加，第二个负值转为0(长度为0，即返回空字符串).
+						substring()将两个负值都转为0，并可以交换大小顺序
+			str.indexOf(a) 没有找到返回-1
+			字符串的模式匹配方法：str.match(/正则/).返回值为一个数组。与调用reg的exec()方法相同
+				str.search(//)返回字符串中第一个匹配项的索引，没有返回-1.始终从字符串开头向后查找。
+				替换字符串操作str.replace(str|reg,reg|fn)fn的参数要分为第一个参数的正则中有无捕获的情
+				况。无捕获：3个参数为匹配项、index、原始字符串；有捕获：参数为模式的匹配项、第一个捕获、第二个捕获。。。、index、原始字符串。
+		内置对象：在js程序运行之前就已经存在的对象。Global(isNan()|parseInt()|parseFloat()) / Math
+	</p>
+	<p>
+		第六章 面向对象
+		创建对象的方法：
+			工厂方式: function person(name,age){
+							var o = {};
+							o.name = name;
+							o.age = age;
+							o.sayName = function(){alert(this.name)}
+							retrun o;
+						}
+						p1 = person('xzk',18);
+						p2 = person('gnn',18);
+						缺点：公用的方法不相同，内存占用大
+			构造函数：function Person(name,age){
+							this.name = name;
+							this.age = age;
+							this.sayName = function(){alert(this.name)};
+						}
+						p1 = new Person('xzk',18);
+						p2 = new Person('gnn',18);
+			原型方法：function person(){}
+						person.prototype = {
+							constructor: person //直接赋值写法注意修改constructor的问题
+							name:'xzk',
+							sayName:function(){console.log(this.name)}
+						}
+						缺点：忽略了传参；引用类型的属性或方法修改一个则全部实例都会改变
+			混合方法：function person(name,age){
+							this.name = name;
+							this.age = age;
+						}
+						person.prototype.sayName = function(){
+							console.log(this.name);
+						}
+						p1 = new person('xzk',18)
 
 
+		继承：确定原型和实例的方法：instanceof / isPrototypeOf
+	</p>
+	<p>
+		第16章 HTML5脚本编程
+		拖放事件：拖动某元素是，一次触发dragstart/drag/fragend
+					当某个元素被拖动到某个有效的放置目标时，该放置目标身上依次发生：dragenter/dragover/dragleave或drop
+
+		XML曾经好似互联网上传输结构化数据的事实标准。主要是服务器与服务器之间通信，但是过于繁琐冗长。
+		侠义的JSON是JS下的一个严格子集，用来表示结构化数据，是一个轻量级的数据格式
 	</p>
 </body>
 </html>

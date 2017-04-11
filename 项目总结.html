@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+饿了么：
+    css:1px移动端问题：通过检测设备像素比，使用transform:scale缩放对应的倍数 ；判断加载哪种大小的图片
+        传参问题/边框问题：伪类并定位
+    js部分：语义化，即数字ERR_OK = 0; ERR_ERR = 1
+        在vue中设置属性：vue.set(tar,attrName,attrValue)
+        $nextTick:dom更新后执行。将里面的代码放在任务队列中执行
+        eventHub：单一事件管理组件通信/事件仓库集中管理。$on('tarEvent',fn)   emit('',fn)
+        左右两联的联动：用到的iScroll知识。on('scroll',(pos) => {pos.y})
+                    点击左侧list:this.foodsScroll.scrollToElement(el, 300);
+        增加减少的按钮：
+    调用其他组件中的方法：this.$refs.ShopCar.drop(target);
+    小球运动:vue中的运动事件before-enter / enter / after-enter
+
+    后两页：主要是评价组件的使用。组件需要维护的参数：三个按钮的描述/父级传入的总评价的数组
+webapp:
+    因为模拟数据有限，前后端的接口都要做容错处理。当传入的数据无效或者没有传入需要的数据时，指定一个默认的值
+    app.js是入口文件，使用koa配置路由，使用了两个中间件:koa-router/koa-static-server.
+        配置路由时，使用了es6的genrator来绑定函数
+    co-views用来渲染模板的库
+</body>
+</html>

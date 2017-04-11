@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+性能问题的概念：用户对性能最直接的感受：响应时间，TPS：系统吞吐量，即每秒处理的事物数。
+    常说的性能问题就是响应时间过长，系统吞吐量过低。
+    优化方式：提高TPS：利用多线程提高，即同步该异步；利用缓存，优化数据结构和算法，优化逻辑和需求，优化页面布局
+            （去除不必要的嵌套，合理布局，只用符合语义的结构，尽量为所有分辨率创造资源，减少不必要的硬件缩放）等
+
+            网络优化：一个网络请求可以简单分为:服务器链接和获取数据。
+                服务器连接：1.不用域名，用ip直连，省去DNS解析过程。为了安全和拓展，动态更新ip列表，并在ip不可用时使用域名访问
+                          2.服务器多地多运营商合理部署
+                获取数据忧化：1.连接复用。节省连接建立时间，例如开启keep-alive;
+                            2.请求合并。css精灵
+                            3.减少数据体积。使用Gzip压缩；使用json代替xml
+                            4.CDN缓存静态资源。将常见的静态资源（图片/css/js）进行缓存
+                            5.大文件下载：缓存HTTP Response 的ETag标识，下次请求时带上，从而确定数据是否改变过，为改变直接返回304进行重定向
+                            6.对http请求增加timeout
+
+    http缓存机制：服务器端缓存/客户端缓存
+            客户端缓存目的：加速各种静态资源访问
+                Expires是Web服务器响应消息头字段，在响应http请求时告诉浏览器在过期时间前浏览器可以直接从浏览器缓存取数据，而无需再次请求。
+                不过Expires 是HTTP 1.0的东西，现在默认浏览器均默认使用HTTP 1.1，所以它的作用基本忽略。
+                Cache-Control策略：opt更多，控制更精细，优先级高于expires  catch-controll: max-age=0
+                需配合catch-controll使用的字段： Last-Modified/if-Modified-Since
+                    ETag/if-None-Match: ETag比Last-Modified控制更精确，Last-Modified只能精确到秒级别（或者文件定期生成，内容为变而修改时间变了），而ETag是当前资源在
+                        服务器的唯一标识符
+</body>
+</html>

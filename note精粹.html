@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	1.字符串方法：
+		charAt/charCodeAt/formCharCode    indexOf/lastIndexOf
+		split/join   toLowerCase/toUpperCase
+		slice(start,end)负数时，自动加上长度再计算
+		substr(start,length)
+		substring(start,end) 接受负数，且两个参数会互换保证大小
+
+		与正则:str.match / replace / search
+
+	2.数组方法
+		堆/栈方法:push/pop/shift/unshift
+		归并方法:reduce(prev,cur,index,array) / reduceRight
+		排序方法:sort / reverse
+		操作方法:join / conact / splice / slice(start[,end] 返回一个新数组，原数组不变)
+		es5方法:forEach/every/some/filter/map
+	3.json不支持undefinded类型的数据
+	4.DOM: 元素节点/属性节点/文本节点
+			nodeName => DIV 大写
+			node.clone(true/false) 可以克隆html和css(包括行间自定义属性)，不能克隆js自定义属性和事件；布尔值决定是否克隆子节点；
+		 表格的DOM操作   tab.tHead.rows[0].cells[1] //注意是否需要通过下标取值
+                        tab.tBodies[0].rows[0].cells[1]
+        表单的DOM操作   getElementByName()
+        页面滚动高度scrollY = document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset || 0
+            浏览器可视区高度 = window.innerHeight || document.documentElement.clientWidth
+    5.事件
+    	鼠标滚轮事件：ie/chorme onmousewheel ev.wheelDetal 上120 下-120
+    					FF      addEventlistener('DOMMouseScroll',fn) ev.detail 上-3 下3
+	6.同步异步的理解：
+		浏览器线程爆包括js引擎线程/GUI渲染线程/浏览器事件触发线程/http请求线程。其中js引擎线程和GUI渲染线程是互斥的。事件触发线程：当一个事件发生时，该线程会把事件添加到任务队列的队尾等待执行。
+		任务分为同步任务和异步任务。当主程序执行时，会产生一个堆和一个栈。所有的同步任务都会放在主线程上执行，组成一个执行栈。主线程之外还有一个任务队列，所有的异步任务都放到任务队列中。任务队列是一个先进先出的结构
+
+		浏览器阻塞分为：js执行时阻塞/js资源加载时的阻塞
+			在document.DOMContentLoaded之后，浏览器进入事件驱动阶段（而不是在window.onload之后），故为了防止白屏现象，将js标签放在body的最后面
+		无阻塞加载脚本：defer:立即下载，但要延迟到DOM解析完毕后在执行。理论上会按照顺序执行，但实际中不一定，最好只包含一个延迟脚本；
+			async:异步脚本。立即下载文件，但不保证执行顺序。应保证异步脚本中不会修改DOM
+			动态插入脚本标签。实现并行下载，下载完后会异步执行，为了解决依赖问题，使用script的onload添加回调
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

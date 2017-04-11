@@ -135,7 +135,7 @@
             navigator浏览器信息对象 navigator.urerAgent 浏览器版本 Chrome/FireFox
             location地址栏对象，其中各个属相即可获取也可设置
                 location.href获取的是绝对路径,设置时效果同等于a。所有的都是字符串格式
-                location.search查寻信息 //'www.baidu.com?s=xzk#page=1'  查询信息为?s=xzk ?和#之间的内容，包括?
+                location.search查寻信息 //'www.baidu.com?s=xzk#page=1'  查询信息为?s=xzk#page=1
                 location.hash锚信息(除该属性意外，剩下的都会刷新页面，除该属性外，设置操作都不能放在全局，否则会无限刷新，应该用触发触发) #后面的内容
                         window.onhashchange = function(){}
     1.4     可视区宽高：不考虑兼容性，移动端 window.innerWidth/innerHeigth  ie9+ 该方法是标准的方法
@@ -255,7 +255,7 @@
             new函数中没有加return 时，默认返回值这个对象；果如有return ，返回值是对象，则返回这个对象，如果return的不是对象，则返回默认添加的对象
             new 出来的对象，称为实例化对象
             portotype :  Teacher.prototype 这个值是对象 函数身上既有原型，也有原型链
-            __proto__ 原型链 对像身上才有，但是没有原型 是实例化对像与构造函数之间的桥梁
+            __proto__ 原型链 ，但是没有原型 是实例化对像与构造函数之间的桥梁
             原型链的查找：是通过原型找的，所以方法应该挂在原型上。实例化对象f -> f.__proto__ == fF.prototype ->
             函数的原型上的方法只给函数的实例化对象使用
             自执行函数的this一定指向Window
